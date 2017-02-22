@@ -76,3 +76,10 @@ def problem5():
                 break
         if divisible:
             return n
+
+def problem6():
+    """Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum."""
+    squares = sum([x ** 2 for x in range(1, 101)])
+    sumsquare = sum(range(1, 101)) ** 2
+    diff = sumsquare - squares
+    return diff
