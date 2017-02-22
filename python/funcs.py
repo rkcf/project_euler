@@ -65,3 +65,14 @@ def problem4():
         if reverse == normal:
             palindromes.append(n)
     return max(palindromes)
+
+def problem5():
+    """What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?"""
+    for n in range(1, 2*3*4*5*6*7*8*9*10*11*12*13*14*15*16*17*18*19*20):
+        divisible = True
+        for div in range(1, 21):
+            if n % div != 0:
+                divisible = False
+                break
+        if divisible:
+            return n
