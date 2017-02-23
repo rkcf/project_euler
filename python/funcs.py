@@ -2,7 +2,7 @@
 
 NOT_PRIMES = []
 
-def is_prime(n, m):
+def is_prime_max(n, m):
     """ Returns True if number is a prime """
     if n in NOT_PRIMES:
         return False
@@ -15,6 +15,13 @@ def is_prime(n, m):
             break
         NOT_PRIMES.append(i * n)
 
+    return True
+
+def is_prime(n):
+    """Returns True if n is prime"""
+    for x in range(2, int(n/2)+1):
+        if n % x == 0:
+            return False
     return True
 
 def problem1():
@@ -49,7 +56,7 @@ def problem3():
     target = 600851475143
     for div in range(2, int(target/2)):
         if target % div == 0:
-            if is_prime(div, target):
+            if is_prime_max(div, target):
                 pfactors.append(div)
     return max(pfactors)
 
@@ -83,3 +90,13 @@ def problem6():
     sumsquare = sum(range(1, 101)) ** 2
     diff = sumsquare - squares
     return diff
+
+def problem7():
+    """What is the 10001st prime number?"""
+    i = 0
+    n = 2
+    while i != 10001:
+        if is_prime(n):
+            i += 1
+        n += 1
+    return n-1
