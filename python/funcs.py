@@ -132,3 +132,12 @@ def problem8():
         products.append(prod)
 
     return max(products)
+
+def problem9():
+    """There exists exactly one Pythagorean triplet for which a + b + c = 1000.  Find the product abc."""
+    for a in range(1, 1000):
+        for b in range(1, 1000):
+            for c in range(1, 1000):
+                if a + b + c == 1000:
+                    if a ** 2 + b ** 2 == c ** 2:
+                        return a * b * c
