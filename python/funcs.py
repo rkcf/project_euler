@@ -24,6 +24,18 @@ def is_prime(n):
             return False
     return True
 
+def prime_sieve(m):
+    """returns a list of all primes between 2 and m"""
+    nums = list(range(2, m + 1))
+    for n in nums:
+        for i in range(2, m):
+            p = i * n
+            if p > m:
+                break
+            if p in nums:
+                nums.remove(p)
+    return nums
+
 def problem1():
     """ Find the sum of all the multiples of 3 or 5 below 1000. """
     l = []
@@ -141,3 +153,8 @@ def problem9():
                 if a + b + c == 1000:
                     if a ** 2 + b ** 2 == c ** 2:
                         return a * b * c
+
+def problem10():
+    """Find the sum of all the primes below two million."""
+    primes = prime_sieve(2000000)
+    return sum(primes)
