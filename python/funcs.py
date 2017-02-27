@@ -1,6 +1,20 @@
 """ Project Euler problems in python """
+import threading
 
 NOT_PRIMES = []
+
+def find_factors(n):
+    """Returns a list of the factors of n"""
+    factors = []
+    for i in range(1, int((n+2)/2)):
+        if n % i == 0:
+            factors.append(i)
+    factors.append(n)
+    return factors
+
+def gen_triangular(n):
+    """Returns the triangular number made by summing the natural numbers 1 ... n"""
+    return sum(range(1, n+1))
 
 def is_prime_max(n, m):
     """ Returns True if number is a prime """
@@ -316,3 +330,22 @@ def problem11():
             products.append(product)
 
     return max(products)
+
+def problem12():
+    """What is the value of the first triangle number to have over five hundred divisors?"""
+    i = 1
+    runningsum = 0
+    while True:
+        runningsum += i
+        factors = find_factors(runningsum)
+        if len(factors) > 500:
+            return runningsum
+        i += 1
+
+        # generate triangular number
+        #tri = gen_triangular(i)
+        #find factors of t
+        #factors = find_factors(tri)
+        #if len(factors) > 5:
+            #return tri
+        #i += 1
