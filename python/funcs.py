@@ -447,3 +447,30 @@ def problem13():
             , 53503534226472524250874054075591789781264330331690]
 
     return int(str(sum(nums))[0:10])
+
+def next_collatz(n):
+    """Returns the next value in the collatz sequence starting with n"""
+    if n % 2 == 0:
+        return int(n/2)
+    return 3 * n + 1
+
+def problem14():
+    """Given all collatz sequences, with starting number < 1000000, which produces the longest sequence"""
+    sequences = []
+    for i in range(1, 1000000):
+        collatz = [i]
+        n = i
+        while collatz[len(collatz)-1] != 1:
+            n = next_collatz(n)
+            collatz.append(n)
+        sequences.append((i, collatz))
+
+    longest = (1, [1])
+    for seq in sequences:
+        if len(seq[1]) > len(longest[1]):
+            longest = seq
+
+    return longest[0]
+
+
+
