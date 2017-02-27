@@ -182,6 +182,7 @@ def problem11():
             '20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54 '
             '01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48')
 
+    #put values into a tuple which defines their position, (value, x, y)
     grid_list = grid.split(' ')
     positions = []
     for y_pos in range(0, 20):
@@ -191,7 +192,6 @@ def problem11():
     products = []
     for pos in positions:
         #check up
-        print(pos)
         vals = [pos['value']]
         for i in range(1, 4):
             new_y = pos['y'] - i
@@ -200,22 +200,119 @@ def problem11():
             for new_pos in positions:
                 if new_pos['y'] == new_y and new_pos['x'] == pos['x']:
                     vals.append(new_pos['value'])
-       #             print("appending: " + str(new_pos))
-
         if len(vals) == 4:
             product = 1
             for i in range(0, 4):
                 product *= vals[i]
-
             products.append(product)
-      #      print("appending: " + str(product))
 
-      #  if len(products) > 0:
-      #      print("up product for: " + str(pos['x']) + "," + str(pos['y']) + ": " + str(products[len(products) - 1]))
         #check down
+        vals = [pos['value']]
+        for i in range(1, 4):
+            new_y = pos['y'] + i
+            if new_y > 19:
+                break
+            for new_pos in positions:
+                if new_pos['y'] == new_y and new_pos['x'] == pos['x']:
+                    vals.append(new_pos['value'])
+        if len(vals) == 4:
+            product = 1
+            for i in range(0, 4):
+                product *= vals[i]
+            products.append(product)
+
         #check left
+        vals = [pos['value']]
+        for i in range(1, 4):
+            new_x = pos['x'] - i
+            if new_x < 0:
+                break
+            for new_pos in positions:
+                if new_pos['y'] == pos['y'] and new_pos['x'] == new_x:
+                    vals.append(new_pos['value'])
+        if len(vals) == 4:
+            product = 1
+            for i in range(0, 4):
+                product *= vals[i]
+            products.append(product)
+
         #check right
+        vals = [pos['value']]
+        for i in range(1, 4):
+            new_x = pos['x'] + i
+            if new_x > 19:
+                break
+            for new_pos in positions:
+                if new_pos['y'] == pos['y'] and new_pos['x'] == new_x:
+                    vals.append(new_pos['value'])
+        if len(vals) == 4:
+            product = 1
+            for i in range(0, 4):
+                product *= vals[i]
+            products.append(product)
+
         #check upleft diag
+        vals = [pos['value']]
+        for i in range(1, 4):
+            new_x = pos['x'] + i
+            new_y = pos['y'] - i
+            if new_x > 19 or new_y < 0:
+                break
+            for new_pos in positions:
+                if new_pos['y'] == new_x and new_pos['x'] == new_x:
+                    vals.append(new_pos['value'])
+        if len(vals) == 4:
+            product = 1
+            for i in range(0, 4):
+                product *= vals[i]
+            products.append(product)
+
         #check upright diag
+        vals = [pos['value']]
+        for i in range(1, 4):
+            new_x = pos['x'] + i
+            new_y = pos['y'] - i
+            if new_x > 19 or new_y < 0:
+                break
+            for new_pos in positions:
+                if new_pos['y'] == new_x and new_pos['x'] == new_x:
+                    vals.append(new_pos['value'])
+        if len(vals) == 4:
+            product = 1
+            for i in range(0, 4):
+                product *= vals[i]
+            products.append(product)
+
         #check downleft diag
+        vals = [pos['value']]
+        for i in range(1, 4):
+            new_x = pos['x'] - i
+            new_y = pos['y'] + i
+            if new_x < 0 or new_y > 19:
+                break
+            for new_pos in positions:
+                if new_pos['y'] == new_y and new_pos['x'] == new_x:
+                    vals.append(new_pos['value'])
+        if len(vals) == 4:
+            product = 1
+            for i in range(0, 4):
+                product *= vals[i]
+            products.append(product)
+
         #check downright diag
+        vals = [pos['value']]
+        for i in range(1, 4):
+            new_x = pos['x'] + i
+            new_y = pos['y'] + i
+            if new_x > 19 or new_y > 19:
+                break
+            for new_pos in positions:
+                if new_pos['y'] == new_x and new_pos['x'] == new_x:
+                    vals.append(new_pos['value'])
+        if len(vals) == 4:
+            product = 1
+            for i in range(0, 4):
+                product *= vals[i]
+            products.append(product)
+
+    return max(products)
