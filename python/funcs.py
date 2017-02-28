@@ -1,8 +1,12 @@
 """ Project Euler problems in python """
 
-import threading
-
 NOT_PRIMES = []
+
+def next_collatz(n):
+    """Returns the next value in the collatz sequence starting with n"""
+    if n % 2 == 0:
+        return int(n/2)
+    return 3 * n + 1
 
 def find_factors(n):
     """Returns a list of the factors of n"""
@@ -448,12 +452,6 @@ def problem13():
 
     return int(str(sum(nums))[0:10])
 
-def next_collatz(n):
-    """Returns the next value in the collatz sequence starting with n"""
-    if n % 2 == 0:
-        return int(n/2)
-    return 3 * n + 1
-
 def problem14():
     """Given all collatz sequences, with starting number < 1000000, which produces the longest sequence"""
     sequences = []
@@ -472,5 +470,64 @@ def problem14():
 
     return longest[0]
 
+def down(coordinates, m):
+    """Returns the coordinates of the space one down"""
+    new_y = coordinates[1] + 1
+    if new_y >= m:
+        return None
+    return (coordinates[0], new_y)
 
+def right(coordinates, m):
+    """Returns the coordinates of the space one right"""
+    new_x = coordinates[0] + 1
+    if new_x >= m:
+        return None
+    return (new_x, coordinates[1])
 
+class Route:
+    """Class for a route through a cartesian grid system"""
+
+    def __init__(self, positions):
+        self.route = positions
+
+    def last_pos(self):
+        """returns last position of route"""
+        return self.route[len(self.route) - 1]
+
+    def next_pos(self, position):
+        """appends position to end of route"""
+        self.route.append(position)
+
+def problem15():
+    """Moving only right and down, starting from the top left corner, how many routes are there to the bottom right corner in a 20x20 grid"""
+    start = Route([(0, 0)])
+    routes = [start]
+    terminated = []
+    while routes:
+        for r in routes:
+            #print("working on route: " + str(r.route))
+            print(r.route)
+            new_pos = right(r.last_pos(), 20)
+            if new_pos:
+                new_r = Route(r.route)
+                new_r.next_pos(new_pos)
+                #print("created new route: " + str(new_r.route))
+                if new_pos == (19, 19):
+                    terminated.append(new_r)
+                else:
+                    routes.append(new_r)
+            new_pos = down(r.last_pos(), 20)
+            print(r.route)
+            if new_pos:
+                new_r = Route(r.route)
+                new_r.next_pos(new_pos)
+                if new_pos == (19, 19):
+                    terminated.append(new_r)
+                else:
+                    routes.append(new_r)
+            print(r.route) 
+            routes.remove(r)
+            print("total unfinished routes: " + str(len(routes)))
+            #print("total finished routes: " + str(len(terminated)))
+
+    return len(terminated)
