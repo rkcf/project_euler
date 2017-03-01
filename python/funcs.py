@@ -485,7 +485,7 @@ def right(coordinates, m):
     return (new_x, coordinates[1])
 
 class Route:
-    """Class for a route through a cartesian grid system"""
+    """Class for a route through a cartesian grid system.  Consists of an ordered list of coordinate tuples"""
 
     def __init__(self, positions):
         self.route = positions
@@ -505,29 +505,32 @@ def problem15():
     terminated = []
     while routes:
         for r in routes:
-            #print("working on route: " + str(r.route))
-            print(r.route)
             new_pos = right(r.last_pos(), 20)
             if new_pos:
-                new_r = Route(r.route)
-                new_r.next_pos(new_pos)
-                #print("created new route: " + str(new_r.route))
+                #need to wrap this route list in a list, so it doesnt return a pointer and fuck everything up :/
+                new_r = Route(list(r.route))
+                new_r.next_pos((new_pos))
                 if new_pos == (19, 19):
                     terminated.append(new_r)
                 else:
                     routes.append(new_r)
             new_pos = down(r.last_pos(), 20)
-            print(r.route)
             if new_pos:
-                new_r = Route(r.route)
+                new_r = Route(list(r.route))
                 new_r.next_pos(new_pos)
                 if new_pos == (19, 19):
                     terminated.append(new_r)
                 else:
                     routes.append(new_r)
-            print(r.route) 
+            print("total routes: " + str(len(terminated) + len(routes)))
             routes.remove(r)
-            print("total unfinished routes: " + str(len(routes)))
-            #print("total finished routes: " + str(len(terminated)))
 
     return len(terminated)
+
+def problem16():
+    """What is the sum of the digits of the number 2^1000?"""
+    num = str(2 ** 1000)
+    s = 0
+    for n in num:
+        s += int(n)
+    return s
