@@ -534,3 +534,18 @@ def problem16():
     for n in num:
         s += int(n)
     return s
+
+def factorial(n):
+    """returns factorial of n"""
+    if n < 1:
+        return 1
+    new = n * factorial(n - 1)
+    return new
+
+def problem20():
+    """Find the sum of the digits in the number 100!"""
+    n = str(factorial(100))
+    s = 0
+    for i in n:
+        s += int(i)
+    return s
