@@ -549,3 +549,22 @@ def problem20():
     for i in n:
         s += int(i)
     return s
+
+def problem21():
+    """Evaluate the sum of all the amicable numbers under 10000."""
+    sums = []
+    for n in range(2, 10000):
+        divisors = find_factors(n)
+        divisors.remove(n)
+        s = sum(divisors)
+        sums.append((n, s))
+
+    ammicable = []
+    for i in sums:
+        for j in sums:
+            if i[1] == j[0] and i[0] != j[0]:
+                #print(str(i[0]) + " and " + str(j[0]) + " are ammicable paris")
+                ammicable.append(i[0])
+                ammicable.append(j[0])
+                break
+    return sum(ammicable)
