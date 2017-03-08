@@ -500,29 +500,29 @@ class Route:
 
 def problem15():
     """Moving only right and down, starting from the top left corner, how many routes are there to the bottom right corner in a 20x20 grid"""
+    size = 2 
     start = Route([(0, 0)])
     routes = [start]
     terminated = []
     while routes:
         for r in routes:
-            new_pos = right(r.last_pos(), 20)
+            new_pos = right(r.last_pos(), size)
             if new_pos:
                 #need to wrap this route list in a list, so it doesnt return a pointer and fuck everything up :/
                 new_r = Route(list(r.route))
                 new_r.next_pos((new_pos))
-                if new_pos == (19, 19):
+                if new_pos == (size - 1, size - 1):
                     terminated.append(new_r)
                 else:
                     routes.append(new_r)
-            new_pos = down(r.last_pos(), 20)
+            new_pos = down(r.last_pos(), size)
             if new_pos:
                 new_r = Route(list(r.route))
                 new_r.next_pos(new_pos)
-                if new_pos == (19, 19):
+                if new_pos == (size - 1, size - 1):
                     terminated.append(new_r)
                 else:
                     routes.append(new_r)
-            print("total routes: " + str(len(terminated) + len(routes)))
             routes.remove(r)
 
     return len(terminated)
@@ -568,3 +568,24 @@ def problem21():
                 ammicable.append(j[0])
                 break
     return sum(ammicable)
+
+def problem23():
+    """Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers."""
+    abundant = []
+    for n in range(12, 28124):
+        divisors = find_factors(n)
+        divisors.remove(n)
+        if sum(divisors) > n:
+            abundant.append(n)
+    not_sum = []
+    for n in range(24, 28124):
+        canSum = False
+        for i in abundant:
+            for j in abundant:
+                if i + j == n:
+                    canSum = True
+                    break
+        if not canSum:
+            not_sum.append(n)
+
+    return sum(not_sum)
