@@ -38,7 +38,7 @@ def is_prime_max(n, m):
 
 def is_prime(n):
     """Returns True if n is prime"""
-    for x in range(2, int(n/2)+1):
+    for x in range(2, abs(int(n/2)+1)):
         if n % x == 0:
             return False
     return True
@@ -589,3 +589,84 @@ def problem23():
             not_sum.append(n)
 
     return sum(not_sum)
+
+def problem24():
+    """What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?"""
+    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    for i in range(0, 10):
+        perm = [i]
+        for j in range(0, 10): 
+            if j not in perm:
+                perm.insert(1, j)
+                for k in range(0, 10):
+                    if k not in perm:
+                        perm.insert(2, k)
+                        for l in range(0, 10):
+                            if l not in perm:
+                                perm.insert(3, l)
+                                for m in range(0, 10):
+                                    if m not in perm:
+                                        perm.insert(4, m)
+                                        for n in range(0, 10):
+                                            if n not in perm:
+                                                perm.insert(5, n)
+                                                for o in range(0, 10): 
+                                                    if o not in perm:
+                                                        perm.insert(6, o)
+                                                        for p in range(0, 10):
+                                                            if p not in perm:
+                                                                perm.insert(7, p)
+                                                                for q in range(0, 10):
+                                                                    if q not in perm:
+                                                                        perm.insert(8, q)
+                                                                        for r in range(0, 10):
+                                                                            if r not in perm:
+                                                                                perm.insert(9, r)
+                                                                                print(perm)
+                                                                                permutations.append(perm)
+                                                                                perm.remove(r)
+
+def permute(l):
+    """returns every permutation of the list"""
+    if len(l) == 0:
+        return []
+    elif len(l) == 1:
+        return [l[0]]
+    else:
+        #create all possible combinations of numbers fom list"""
+        print(l)
+        permutations = permute(l[1:len(l)])
+        for perm in permutations:
+            perm.insert(0, l[0])
+        print(permutations)
+        return permutations
+
+def problem26():
+    """Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part."""
+    #after reading some python documentation, I am not sure if i can do this with python types
+    for d in range(1, 10):
+        decfrac = str(1 / d).split('.')[1]
+
+def problem27():
+    """
+    n2+an+b, where |a|<1000 and |b|≤1000
+    Find the product of the coefficients, a and b, for the quadratic expression that produces
+    the maximum number of primes for consecutive values of n, starting with n=0.
+    """
+    products = []
+    for a in range(-999, 1000):
+        for b in range(-1000, 1001):
+            primes = 0
+            for n in range(0, 100):
+                if is_prime(n ** 2 + a * n + b):
+                    primes += 1
+                else:
+                    break
+            products.append((a * b, primes))
+
+    m = (0, 0)
+    for pair in products:
+        if pair[1] > m[1]:
+            m = pair
+
+    return m[0]
