@@ -670,3 +670,17 @@ def problem27():
             m = pair
 
     return m[0]
+
+def problem28():
+    """What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral grid"""
+    nums = list(range(1, 1002002))
+    diags = []
+    diff = 2
+    i = 0
+    while i < len(nums):
+        diags.append(nums[i])
+        if i == diff * (diff + 2):
+            diff += 2
+        i += diff
+
+    return sum(diags)
