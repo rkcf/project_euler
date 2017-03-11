@@ -695,3 +695,15 @@ def problem29():
                 seq.append(term)
 
     return len(seq)
+
+def problem30():
+    """Find the sum of all the numbers that can be written as the sum of fifth powers of their digits."""
+    valid = []
+    for num in range(2, 1000000):
+        num = str(num)
+        s = 0
+        for i in range(0, len(num)):
+            s += int(num[i]) ** 5
+        if s == int(num):
+            valid.append(int(num))
+    return sum(valid)
