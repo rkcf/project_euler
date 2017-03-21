@@ -707,3 +707,47 @@ def problem30():
         if s == int(num):
             valid.append(int(num))
     return sum(valid)
+
+def problem32():
+    """Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital."""
+    pandigital = []
+    nums = list(range(1, 61728396))
+    for i in nums:
+        for j in nums:
+            p = i * j
+            total = str(p) + str(i) + str(j)
+            if len(total) == 9:
+                pan = True
+                for k in range(1, 10):
+                    if str(k) not in total:
+                        pan = False
+                        break
+                if pan and p not in pandigital:
+                    print('%d is pandigital %d * %d' % (p, i, j))
+                    pandigital.append(p)
+        nums.remove(i)
+
+    return sum(pandigital)
+
+def problem33():
+    fractions = []
+    for num in range (10, 100):
+        for den in range(10, 100):
+            if num / den < 1:
+                if str(num)[0] == str(den)[1] or str(num)[1] == str(den)[0]:
+                    fractions.append((num, den))
+
+    return fractions
+
+def problem34():
+    """Find the sum of all numbers which are equal to the sum of the factorial of their digits"""
+    uniquenums = []
+    for n in range(3, 100000):
+        nstr = str(n)
+        facsum = 0
+        for i in range(0, len(nstr)):
+            facsum += factorial(int(nstr[i]))
+        if facsum == n:
+            uniquenums.append(n)
+
+    return sum(uniquenums)
